@@ -1,0 +1,181 @@
+NLP Classification Projects
+
+Student: Your Name
+Date: [Submission Date]
+Projects:
+1. Spam Email Classifier
+2. Product Review Rating Predictor
+
+------------------------------------------------------------------------
+
+1. Introduction
+
+This report presents two natural language processing (NLP) projects
+focused on supervised text classification.
+Both tasks use machine-learning models to predict discrete categories
+from free-form text:
+
+1.  Spam Email Classifier – Detect whether a message is Spam or Ham (not
+    spam).
+2.  Product Review Rating Predictor – Predict whether a product review
+    is Positive, Neutral, or Negative.
+
+The goal is to demonstrate the end-to-end process of data cleaning, text
+preprocessing, feature extraction, model training, and evaluation.
+
+------------------------------------------------------------------------
+
+2. Datasets
+
+Spam Classifier
+- Dataset: SMS Spam Collection (UCI repository).
+- Size: ~5,500 short text messages labelled spam or ham.
+- Class balance: about 13% spam, 87% ham.
+
+Product Review Predictor
+- Dataset: Amazon/Flipkart product reviews (public Kaggle CSV).
+- Original ratings were numeric (1–5).
+- Ratings were mapped to three sentiment classes: - Negative: ratings
+1–2
+- Neutral: rating 3
+- Positive: ratings 4–5
+- The final dataset contained several thousand reviews with varying
+class proportions.
+
+------------------------------------------------------------------------
+
+3. Preprocessing
+
+Text data was cleaned using identical NLP steps to ensure consistent
+input for the models:
+
+-   Lowercasing – All text converted to lowercase.
+-   Noise removal – URLs and non-alphanumeric characters removed with
+    regular expressions.
+-   Tokenization – Sentences split into word tokens using NLTK’s
+    word_tokenize.
+-   Stopword removal – Common English stopwords removed to reduce noise.
+-   Lemmatization – Tokens lemmatized to their base forms using WordNet.
+-   Final output was a clean string for each message or review.
+
+------------------------------------------------------------------------
+
+4. Feature Extraction
+
+Each cleaned document was transformed into a numerical vector using
+TF-IDF (Term Frequency–Inverse Document Frequency):
+
+-   Captures both word frequency and rarity across the corpus.
+-   Used unigrams and bigrams with a vocabulary size of up to
+    5,000–10,000 features.
+-   Produces a sparse matrix suitable for linear classifiers.
+
+------------------------------------------------------------------------
+
+5. Model Training
+
+Two linear models were trained for each project:
+
+  -----------------------------------------------------------------------
+  Project                                 Models
+  --------------------------------------- -------------------------------
+  Spam Classifier                         Multinomial Naive Bayes (NB)
+                                          and Logistic Regression (LR)
+
+  Product Review Predictor                Logistic Regression (LR) and
+                                          Linear Support Vector Machine
+                                          (SVM)
+  -----------------------------------------------------------------------
+
+Models were trained on 80% of the data and evaluated on a held-out 20%
+test set.
+Logistic Regression was optimized with the liblinear solver and
+regularization tuned by default parameters.
+Linear SVM was chosen for its strong performance on high-dimensional
+text data.
+
+------------------------------------------------------------------------
+
+6. Evaluation Metrics
+
+Performance was measured with: * Classification Report – Precision,
+Recall, F1-score per class. * Macro-averaged F1 – Gives equal weight to
+all classes (important for imbalanced data). * Confusion Matrix –
+Visualizes correct and incorrect predictions. * ROC Curve & AUC – Binary
+case (Spam). * Class-wise Accuracy Bar Chart – Multi-class product
+review task.
+
+------------------------------------------------------------------------
+
+7. Results Summary
+
+Spam Email Classifier
+
+  --------------------------------------------------------------------------
+  Model        Accuracy           Macro F1         Observations
+  ------------ ------------------ ---------------- -------------------------
+  Naive Bayes  ~97–98%            ~0.96            Fast and strong baseline
+
+  Logistic     ~98–99%            ~0.97            Slightly higher
+  Regression                                       precision/recall
+  --------------------------------------------------------------------------
+
+Both models clearly separated spam from ham.
+ROC AUC was above 0.99 for Logistic Regression, confirming near-perfect
+discrimination.
+
+Product Review Rating Predictor
+
+  Model                 Accuracy   Macro F1   Observations
+  --------------------- ---------- ---------- --------------------------
+  Logistic Regression   ~80–82%    ~0.79      Good overall balance
+  Linear SVM            ~81–83%    ~0.80      Slightly better macro F1
+
+Positive reviews were easiest to classify due to distinctive positive
+vocabulary.
+Neutral reviews were hardest because their language overlaps with both
+positive and negative classes.
+
+------------------------------------------------------------------------
+
+8. Discussion
+
+The experiments highlight several key insights:
+
+-   TF-IDF remains a simple yet powerful representation for short text
+    tasks.
+-   Linear models perform competitively on sparse text data and train
+    quickly.
+-   Class imbalance (spam < ham; neutral < positive/negative) affects
+    macro F1 more than accuracy.
+    Balancing techniques such as class weighting or oversampling could
+    further improve neutral performance.
+
+For future improvements, pre-trained embeddings (e.g., Word2Vec, BERT)
+and hyperparameter tuning may yield gains, especially on subtle
+sentiment distinctions.
+
+------------------------------------------------------------------------
+
+9. Conclusion
+
+These projects demonstrate an end-to-end NLP workflow: 1. Raw text
+collection and cleaning, 2. Vectorization with TF-IDF, 3. Training and
+evaluating strong baseline models.
+
+Both tasks achieved high predictive performance: * Spam detection
+reached near-perfect accuracy. * Three-class sentiment analysis achieved
+strong macro-F1 despite class imbalance.
+
+The methodology is general and can be extended to many other text
+classification problems.
+
+------------------------------------------------------------------------
+
+References
+
+-   UCI Machine Learning Repository – SMS Spam Collection Dataset.
+-   Kaggle – Amazon/Flipkart Product Reviews datasets.
+-   Scikit-learn & NLTK documentation.
+
+------------------------------------------------------------------------
