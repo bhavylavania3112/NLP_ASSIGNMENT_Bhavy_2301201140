@@ -1,7 +1,8 @@
 NLP Classification Projects
 
-Student: Your Name
-Date: [Submission Date]
+Student: Bhavy Lavania
+Roll No. 2301201140
+Couse: BCA (AI & DS)
 Projects:
 1. Spam Email Classifier
 2. Product Review Rating Predictor
